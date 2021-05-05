@@ -1,0 +1,140 @@
+<section class="details-page">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6" *ngFor="let building of buildings; let i = index">
+        <div class="card">
+          <div class="card-body">
+            <h2>{{building.name}}</h2>
+            <h5>Workers</h5>
+            <table class="table table-borderless">
+              <thead style="border-bottom: 1px solid #ccc;">
+                <tr>
+                  <th>Name</th>
+                  <th>Repair Time</th>
+                  <th>Move Time</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let b of building.workers">
+                  <td>{{b.name}}</td>
+
+                  <td>{{b.mean_time_to_repair}}</td>
+                  <td>{{b.mean_time_to_move}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <hr />
+            <!-- Start of table 2 -->
+            <table class="table table-borderless">
+              <thead style="border-bottom: 1px solid #ccc;">
+                <tr>
+                  <th>Name</th>
+                  <th>Uptime</th>
+                  <th>Working</th>
+                  <th>Fail Rate</th>
+                </tr>
+              </thead>
+              <tbody>
+                <h5>Mahines</h5>
+                <tr *ngFor="let machine of building.machines">
+                  <td>{{machine.name}}</td>
+                  <td>{{machine.uptime | percent:'1.2'}}</td>
+                  <td>
+                    {{machine.working && 'Yes' || 'No' }}
+                  </td>
+
+                  <td>{{machine.mean_time_to_fail}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- End of table 2 -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Start of 2nd Container -->
+
+  <section class="container mt-4">
+    <div class="row">
+      <div class="col-md-10">
+        <h5>Task Input</h5>
+        <form #validateForm="ngForm" (ngSubmit)="onSubmit()" method="POST">
+          <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th>Task</th>
+                <th>Worker</th>
+                <th>Machine</th>
+                <th>Building</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <!-- Task -->
+                <td>
+                  <select>
+                    <option *ngFor="let t of name" [value]="t">
+                      {{t}}
+                    </option>
+                  </select>
+                </td>
+                <!-- Workers -->
+                <td>
+                  <select>
+                    <option *ngFor="let w of workers" [value]="w">
+                      {{w}}
+                    </option>
+                  </select>
+                </td>
+                <td>
+                  <!-- machiens -->
+
+                  <select>
+                    <option *ngFor="let m of machines" [value]="m">
+                      {{m}}
+                    </option>
+                  </select>
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    class="form-control"
+                    #building="ngModel"
+                    [(ngModel)]="employee.building"
+                    name="building"
+                    id="building"
+                    required
+                    placeholder="Enter building name"
+                  />
+                  <span
+                    class="text-danger"
+                    *ngIf="building.invalid && (building.dirty || building.touched)"
+                    >Building name is required</span
+                  >
+
+                  <!-- <select class="form-control">
+                    <option *ngFor="let m of machines" [value]="w">
+                      <input type="text" name="name" [value]="w"/>
+                    </option>
+                  </select> -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button
+            (click)="onSubmit()"
+            class="btn btn-primary btn-sm form-sumit-btn"
+            [disabled]="!validateForm.valid"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- End of 2nd Container -->
+</section>

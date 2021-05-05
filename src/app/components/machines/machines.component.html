@@ -1,0 +1,99 @@
+<section class="details-page">
+  <div class="container">
+    <h1 class="text-danger mb-3">{{title}}</h1>
+    <hr />
+   
+    <div class="row">
+      <div class="col-md-6" *ngFor="let building of buildings; let i = index">
+        <h2>{{building.name}}</h2>
+        <h4 class="mt-3">Workers</h4>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Repair Time</th>
+              <th>Move Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let b of building.workers">
+              <td>{{b.name}}</td>
+              <td>{{b.mean_time_to_repair}}</td>
+              <td>{{b.mean_time_to_move}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Start of Machines -->
+        <h4>Machines</h4>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Up Time</th>
+              <th>Working?</th>
+              <th>Faile Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let m of building.machines">
+              <td>{{m.name}}</td>
+              <td>{{m.mean_time_to_work | percent:'3.2'}}</td>
+              <td>
+                {{m.working && 'Yes' || 'No'}}
+              </td>
+              <td>{{m.mean_time_to_fail }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- End of Machines -->
+      </div>
+    </div>
+
+    <!-- Start of Task Input -->
+
+    <div class="row">
+      <div class="col-md-12" style="display: none;">
+        <h4>Task Input</h4>
+        <table class="table table-borderless">
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Worker</th>
+              <th>Machine</th>
+              <th>Building</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let building of buildings;">
+              <td>
+                <select [(ngModel)]="building.name">
+                  <option
+                    value="{{building.name}}"
+                    *ngFor="let b of building.workers"
+                  >
+                    {{b.name}}
+                  </option>
+                </select>
+              </td>
+              <!-- <td>
+                  <select>
+                    <option
+                      *ngFor="let worker of building.workers"
+                      value="{{worker.name}}"
+                    >
+                      {{worker.maintained}}
+                    </option>
+                  </select>
+                </td> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- End of Task Input -->
+  </div>
+</section>

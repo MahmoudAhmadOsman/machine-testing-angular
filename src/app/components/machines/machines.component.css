@@ -1,0 +1,24 @@
+ .details-page {
+     position: relative;
+ }
+
+ .details-page table {
+     height: 150px;
+ }
+
+
+
+ .details-page table thead {
+     font-size: 12px;
+ }
+
+ .details-page button.form-sumit-btn {
+     margin-top: -150px;
+     border: 1px solid #333;
+
+ }
+
+ .details-page button:disabled {
+     cursor: no-drop;
+
+ }
